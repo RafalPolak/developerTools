@@ -1,6 +1,5 @@
 var webApp = angular.module('webApp',[
 //internal lib
-	'headersCtrl',
 	'startController',
 	'projektController',
 //external lib

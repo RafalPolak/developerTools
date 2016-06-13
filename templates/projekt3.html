@@ -4,14 +4,52 @@
     <h2 class="text-center">Projekt 3</h2>
   </div>
 </div>
-<div class="row">
+<div class="row" ng-controller="projektCtrl">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Test</h3>
+        <h3 class="panel-title">
+        
+        <ul class="nav nav-pills">
+          <li class="dropdown">
+            <div class="btn-group open" uib-dropdown is-open="status.isopen">
+              <a aria-expanded="false" href="" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Choose version
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                <li ng-repeat="choice in releases">
+                  <a ng-click="$parent.current = choice">{{choice}}</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li><button type="button"
+            class="btn btn-default"
+            uib-datepicker-popup="{{format}}"
+            ng-model="dtStart"
+            is-open="popup1.opened"
+            datepicker-options="dateOptions"
+            ng-required="true"
+            close-text="Close"
+            alt-input-formats="altInputFormats"
+          ng-click="openStartDate()">Start Date&nbsp;<i class="glyphicon glyphicon-calendar"></i></button></li>
+          <li><button type="button"
+            class="btn btn-default"
+            uib-datepicker-popup="{{format}}"
+            ng-model="dtEnd"
+            is-open="popup2.opened"
+            datepicker-options="dateOptions"
+            ng-required="true"
+            close-text="Close"
+            alt-input-formats="altInputFormats"
+          ng-click="openEndDate()">End Date&nbsp;<i class="glyphicon glyphicon-calendar"></i></button></li>
+          
+        </ul>
+        </h3>
       </div>
       <div class="panel-body">
-        <p>Testing....</p>
+        <p>Selected: {{current}} <pre>Selected date from: <em>{{dtStart | date:'fullDate' }}</em> to <em>{{dtEnd | date:'fullDate'}}</em></pre></p>
       </div>
     </div>
     
