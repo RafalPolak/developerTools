@@ -56,19 +56,22 @@ readTextFile("log.txt");
             if(rawFile.status === 200 || rawFile.status == 0)
             {
                 var allText = rawFile.responseText;
-                $scope.text = allText.split(/\\n/);
+                $scope.commits = allText;
+                $scope.text = allText.split(/\n/);
             }
         }
     }
     rawFile.send(null);
 }
 
-
-  		$scope.commits = $scope.text;
-
+  		var test = $scope.text;
 
   		//check date start/end and show commits
   		$scope.startFormatting = function(){
+
+  			for(var i=0;i<test.length;i++){
+  				console.log(test[i]);
+  			}
 
   			//have array with one commit
 
@@ -107,6 +110,26 @@ readTextFile("log.txt");
   		}
 
 
+  		$scope.generatePdf = function(){
+  			//generate pdf with commits
+  			var doc = new jsPDF();
+				doc.setFontSize(22);
+				doc.text(20, 20, 'Projekt3');
+
+				doc.setFontSize(16);
+
+				var coordinate = 20;
+
+				for(var i=0;i<test.length;i++){
+					doc.text(20, coordinate+=10, test[i]);
+  				}	
+
+
+
+
+
+				doc.save('Test.pdf');
+  		}
 
 
 	}]);
