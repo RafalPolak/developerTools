@@ -8,7 +8,10 @@ aktualnosci
 
 		$scope.current = 0;
 
-		console.log($scope.test);
+
+
+
+//date code
 
 		$scope.today = function() {
     		$scope.dtStart = new Date();
@@ -32,6 +35,78 @@ aktualnosci
   		$scope.openEndDate = function() {
     		$scope.popup2.opened = true;
   		};
+
+//end date code
+
+  		$scope.text = null;
+
+
+
+readTextFile("log.txt");
+
+
+  		function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                $scope.text = allText.split(/\\n/);
+            }
+        }
+    }
+    rawFile.send(null);
+}
+
+
+  		$scope.commits = $scope.text;
+
+
+  		//check date start/end and show commits
+  		$scope.startFormatting = function(){
+
+  			//have array with one commit
+
+
+  			//slice from beginng to end date
+
+
+  			//compare with dtStart
+
+  			//boolean startPoint = false
+  			//if equal then write to new array and set flag startPoint = true
+
+  			//boolean endPoint = false
+  			//next check if meet date end and set flag endPoint = true
+
+  			/*if(startPoint==false){
+					if(item[0-8]equal dtStart[0-8]){
+						startPoint=true
+					}
+					add to new array
+  				}
+
+  			  if(startPoint==true&&endPoint==false){
+				add to new array
+  			  }
+	
+  			  if(endPoint==false){
+					if(item[0-9]equal dtEnd[0-8]){
+						endPoint=true
+					}
+  			  }
+  			  */
+
+  			console.log($scope.dtStart);
+  			console.log($scope.dtEnd);
+  		}
+
+
 
 
 	}]);

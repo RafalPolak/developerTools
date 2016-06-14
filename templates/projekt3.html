@@ -51,6 +51,13 @@
       <div class="panel-body">
         <p>Selected: {{current}} <pre>Selected date from: <em>{{dtStart | date:'fullDate' }}</em> to <em>{{dtEnd | date:'fullDate'}}</em></pre></p>
       </div>
+      <form>
+          <div class="form-group">
+            <label for="commits">Commits</label>
+            <textarea class="form-control" rows="6" ng-model="commits"></textarea>
+          </div>
+        </form>
+        <button type="submit" class="btn btn-default" ng-click="startFormatting()" translate>Start Formatting</button>
     </div>
     
   </div>
