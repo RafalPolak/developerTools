@@ -45,8 +45,8 @@ aktualnosci
 readTextFile("log.txt");
 
 
-  		function readTextFile(file)
-{
+  	function readTextFile(file)
+  {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", file, false);
     rawFile.onreadystatechange = function ()
@@ -113,19 +113,26 @@ readTextFile("log.txt");
   		$scope.generatePdf = function(){
   			//generate pdf with commits
   			var doc = new jsPDF();
+        //set font title
 				doc.setFontSize(22);
+        //set first line
 				doc.text(20, 20, 'Projekt3');
-
+        //set font content
 				doc.setFontSize(16);
 
 				var coordinate = 20;
+        var maxHeight = 460;
 
 				for(var i=0;i<test.length;i++){
-					doc.text(20, coordinate+=10, test[i]);
+            if(coordinate+11>=maxHeight){
+              doc.addPage();
+              coordinate = 20;
+              doc.setFontSize(22);
+              doc.text(20, 20, 'Projekt3');
+              doc.setFontSize(16);
+            }
+					doc.text(20, coordinate+=11, test[i]);
   				}	
-
-
-
 
 
 				doc.save('Test.pdf');
