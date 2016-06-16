@@ -8,6 +8,7 @@ aktualnosci
 
 		$scope.current = 0;
 
+    $scope.isFormatted = false;
 
 
 
@@ -69,9 +70,48 @@ readTextFile("log.txt");
   		//check date start/end and show commits
   		$scope.startFormatting = function(){
 
-  			for(var i=0;i<test.length;i++){
-  				console.log(test[i]);
-  			}
+        var isFormatWithDate = true;
+        var startPoint = false;
+        var endPoint = false;
+
+        var sliceDateEnd = $scope.dtEnd.toISOString().slice(0,10);
+        var sliceDateStart = $scope.dtStart.toISOString().slice(0,10);
+
+        console.log(sliceDateStart);
+
+        var sliceDate;
+        var arrayDate = [];
+
+        if($scope.dtStart===$scope.dtEnd){
+          isFormatWithDate = false;
+        }
+
+
+        if(isFormatWithDate){
+          console.log('Formatting with date');
+            
+            for(var i=0;i<test.length;i++){
+              sliceDate = test[i].slice(0,10);
+              if(startPoint===false){
+                if(sliceDate===sliceDateEnd){
+                  startPoint=true;
+                }
+              }
+              if(startPoint===true&&endPoint==false){
+                arrayDate.push(test[i]);
+              }
+              if(endPoint===false){
+                if(sliceDate===sliceDateStart){
+                  endPoint=true;
+                  }
+                }
+            }    
+
+            $scope.isFormatted = true;
+            $scope.formatted = arrayDate
+            console.log("after formatting",arrayDate);      
+        }
+
 
   			//have array with one commit
 

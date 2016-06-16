@@ -58,6 +58,12 @@
           </div>
         </form>
         <button type="submit" class="btn btn-default" ng-click="startFormatting()" translate>Start Formatting</button>
+        <form>
+          <div ng-show="isFormatted" class="form-group">
+            <label for="commits">Formatted text</label>
+            <textarea class="form-control" rows="6" ng-model="formatted"></textarea>
+          </div>
+        </form>
         <button type="submit" class="btn btn-warning" ng-click="generatePdf()" translate>Generate PDF</button>
     </div>
     
