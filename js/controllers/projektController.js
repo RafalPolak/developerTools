@@ -43,8 +43,13 @@ aktualnosci
 
 
 
-readTextFile("log.txt");
 
+//read file
+readTextFile("log2.txt");
+
+
+
+//read file fun
 
   	function readTextFile(file)
   {
@@ -59,11 +64,81 @@ readTextFile("log.txt");
                 var allText = rawFile.responseText;
                 $scope.commits = allText;
                 $scope.text = allText.split(/\n/);
-            }
+
+                console.log($scope.text);            
+                //iterate over array
+
+//TO DO - refactor start
+                //if contain # then:
+                                  // cut between #
+                                  // empty array for commits
+                                  // boolean isAddingCommits 
+                                  // add to object with version
+                                  // and start adding commits to array
+                                  // if next # then:
+                                          //
+                var isAddingCommits = false;
+                var arrayForCommits = [];
+                var releases = [];
+                var version = null;
+
+                for(var index=0;index<$scope.text.length;index++){
+                  
+                  //pattern to cut someText between #someText#
+                  var pattern = /#([\s\S]*?)(?=#)/g;
+                  var result = $scope.text[index].match(pattern);
+
+                      //find version
+                      if(result!==null){
+                        console.log("result jest inny, mam wersje");
+                          
+                          //check if version is new
+                          if(result!==version){
+                            console.log("arrayForCommits cos ma", arrayForCommits);
+                            //refactor below duplicate code
+                            if(version!==null&&arrayForCommits.length>0){
+                            var ob = {version:version,commits:arrayForCommits};
+                            releases.push(ob);
+                            isAddingCommits = false; 
+                            }
+                          }
+                            
+
+                          version = result.toString();
+                          arrayForCommits = [];
+                          isAddingCommits = true;
+
+                          console.log("Moja wersja i status");
+                          console.log(version);
+                          console.log(arrayForCommits);
+                          console.log(isAddingCommits);
+                          
+                      }
+
+                      if(isAddingCommits){
+                        console.log('dodaje',$scope.text[index]);
+                        arrayForCommits.push($scope.text[index]);
+                      }
+                      console.log('status',index)
+                      console.log('dlugosc',$scope.text.length);
+                      //condition if we have last version and there is no next version
+                      if($scope.text.length-1==index){
+                        var ob = {version:version,commits:arrayForCommits};
+                            releases.push(ob);
+                            isAddingCommits = false;
+                      }
+                  
+                }
+
+                console.log("TEST OB: ",releases);
+//TO DO - refactor end
+              }
         }
     }
     rawFile.send(null);
 }
+
+//end read file fun
 
   		var test = $scope.text;
 

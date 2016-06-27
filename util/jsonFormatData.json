@@ -1,0 +1,9 @@
+[{
+	"releases": [{
+		"version": "2.19.0",
+		"commits": ["test","test2"]
+	}, {
+		"version": "2.18.0",
+		"commits": ["aaa","bbb"]
+	}]
+}]
