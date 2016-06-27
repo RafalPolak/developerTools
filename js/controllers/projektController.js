@@ -10,7 +10,9 @@ aktualnosci
 
     $scope.isFormatted = false;
 
+    $scope.isReleases = false;
 
+    $scope.releasesNew = null;
 
 //date code
 
@@ -97,7 +99,12 @@ readTextFile("log2.txt");
                             console.log("arrayForCommits cos ma", arrayForCommits);
                             //refactor below duplicate code
                             if(version!==null&&arrayForCommits.length>0){
-                            var ob = {version:version,commits:arrayForCommits};
+                                var ob = {version:version,
+                                          commits:arrayForCommits,
+                                          toString:function(){
+                                    return "\nversion: "+this.version + " \n\ncommits:\n"+this.commits;
+                                }
+                              };
                             releases.push(ob);
                             isAddingCommits = false; 
                             }
@@ -123,7 +130,11 @@ readTextFile("log2.txt");
                       console.log('dlugosc',$scope.text.length);
                       //condition if we have last version and there is no next version
                       if($scope.text.length-1==index){
-                        var ob = {version:version,commits:arrayForCommits};
+                        var ob = {version:version,
+                                  commits:arrayForCommits,
+                                  toString:function(){
+                                    return "\nversion: "+this.version+"\n\ncommits:\n"+this.commits;
+                                  }};
                             releases.push(ob);
                             isAddingCommits = false;
                       }
@@ -131,12 +142,26 @@ readTextFile("log2.txt");
                 }
 
                 console.log("TEST OB: ",releases);
+                $scope.releasesNew = releases;
 //TO DO - refactor end
               }
         }
     }
     rawFile.send(null);
 }
+
+
+//for tests data check
+
+    $scope.checkReleases = function(){
+        if($scope.releasesNew!=null){
+          $scope.isReleases = true;
+          $scope.structuredData = $scope.releasesNew;
+        }
+    }
+
+
+
 
 //end read file fun
 
