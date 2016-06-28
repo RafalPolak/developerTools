@@ -3,7 +3,7 @@ var aktualnosci = angular.module('projektController', []);
 
 aktualnosci
 	.controller('projektCtrl', ['$scope', function ($scope) {
-		
+
 		$scope.releases = ["Release 2.19.0","Release 2.18.0","Release 2.17.0"];
 
 		$scope.current = 0;
@@ -12,7 +12,7 @@ aktualnosci
 
     $scope.isReleases = false;
 
-    $scope.releasesNew = null;
+    $scope.releasesNew = [];
 
 //date code
 
@@ -46,8 +46,9 @@ aktualnosci
 
 
 
-//read file
+//read files
 readTextFile("log2.txt");
+readTextFile("log2_1.txt");
 
 
 
@@ -142,7 +143,8 @@ readTextFile("log2.txt");
                 }
 
                 console.log("TEST OB: ",releases);
-                $scope.releasesNew = releases;
+                $scope.releasesNew.push(releases);
+
 //TO DO - refactor end
               }
         }
@@ -154,8 +156,17 @@ readTextFile("log2.txt");
 //for tests data check
 
     $scope.checkReleases = function(){
-        if($scope.releasesNew!=null){
+
+        //check lodash _.uniq(array)
+        //return only unique value        
+
+        if($scope.releasesNew.length!==0){
           $scope.isReleases = true;
+          /*
+              make $scope.releasesNew as array
+              if select some version then iterate by array and check version
+              if version correct then add commits to data for view
+          */
           $scope.structuredData = $scope.releasesNew;
         }
     }
