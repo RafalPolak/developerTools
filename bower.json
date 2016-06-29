@@ -1,0 +1,38 @@
+{
+  "name": "developer-tools",
+  "description": "Tools for create releases based on git commits/tags",
+  "main": "server.js",
+  "authors": [
+    "Rafal Polak"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "git",
+    "commits",
+    "tags",
+    "bootstrap",
+    "angularjs",
+    "lodash",
+    "tool"
+  ],
+  "homepage": "http://rafalpolak.github.io",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.5.7",
+    "bootstrap": "^3.3.6",
+    "angular-bootstrap": "^1.3.3",
+    "angular-animate": "^1.5.7",
+    "angular-resource": "^1.5.7",
+    "angular-route": "^1.5.7",
+    "angular-sanitize": "^1.5.7",
+    "jspdf": "^1.2.61",
+    "lodash": "^4.13.1"
+  }
+}
