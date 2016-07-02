@@ -14,37 +14,34 @@ aktualnosci
 
     $scope.releasesNew = [];
 
-//date code
+    $scope.popup1 = {
+        opened: false
+      };
 
-		$scope.today = function() {
-    		$scope.dtStart = new Date();
-    		$scope.dtEnd = new Date();
-  		};
+    $scope.popup2 = {
+        opened: false
+      };
 
-  		$scope.today();
+    $scope.text = null;
 
-  		$scope.popup1 = {
-    		opened: false
-  		};
+//date function start
+    $scope.today = function() {
+        $scope.dtStart = new Date();
+        $scope.dtEnd = new Date();
+      };
+    
+    $scope.openStartDate = function() {
+        $scope.popup1.opened = true;
+      };
 
-  		$scope.popup2 = {
-    		opened: false
-  		};
-
-		$scope.openStartDate = function() {
-    		$scope.popup1.opened = true;
-  		};
-
-  		$scope.openEndDate = function() {
-    		$scope.popup2.opened = true;
-  		};
-
-//end date code
-
-  		$scope.text = null;
+    $scope.openEndDate = function() {
+        $scope.popup2.opened = true;
+      };
+//date function end
 
 
-
+    $scope.today();
+  		
 
 //read files
 readTextFile("log2.txt");
@@ -54,7 +51,7 @@ readTextFile("log2_1.txt");
 
 //read file fun
 
-  	function readTextFile(file)
+function readTextFile(file)
   {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", file, false);
@@ -68,7 +65,21 @@ readTextFile("log2_1.txt");
                 $scope.commits = allText;
                 $scope.text = allText.split(/\n/);
 
-                console.log($scope.text);            
+                //fun to create data strucure
+                prepareStructure($scope.text);
+
+              }
+        }
+    }
+    rawFile.send(null);
+}
+
+
+// prepare data structure
+
+function prepareStructure(data){
+
+                console.log(data);            
                 //iterate over array
 
 //TO DO - refactor start
@@ -85,11 +96,11 @@ readTextFile("log2_1.txt");
                 var releases = [];
                 var version = null;
 
-                for(var index=0;index<$scope.text.length;index++){
+                for(var index=0;index<data.length;index++){
                   
                   //pattern to cut someText between #someText#
                   var pattern = /#([\s\S]*?)(?=#)/g;
-                  var result = $scope.text[index].match(pattern);
+                  var result = data[index].match(pattern);
 
                       //find version
                       if(result!==null){
@@ -124,13 +135,13 @@ readTextFile("log2_1.txt");
                       }
 
                       if(isAddingCommits){
-                        console.log('dodaje',$scope.text[index]);
-                        arrayForCommits.push($scope.text[index]);
+                        console.log('dodaje',data[index]);
+                        arrayForCommits.push(data[index]);
                       }
                       console.log('status',index)
-                      console.log('dlugosc',$scope.text.length);
+                      console.log('dlugosc',data.length);
                       //condition if we have last version and there is no next version
-                      if($scope.text.length-1==index){
+                      if(data.length-1==index){
                         var ob = {version:version,
                                   commits:arrayForCommits,
                                   toString:function(){
@@ -146,16 +157,15 @@ readTextFile("log2_1.txt");
                 $scope.releasesNew.push(releases);
 
 //TO DO - refactor end
-              }
-        }
-    }
-    rawFile.send(null);
+
+
+
 }
 
 
 //for tests data check
 
-    $scope.checkReleases = function(){
+$scope.checkReleases = function(){
 
         //check lodash _.uniq(array)
         //return only unique value        
@@ -169,7 +179,7 @@ readTextFile("log2_1.txt");
           */
           $scope.structuredData = $scope.releasesNew;
         }
-    }
+  }
 
 
 
@@ -261,7 +271,7 @@ readTextFile("log2_1.txt");
   		}
 
 
-  		$scope.generatePdf = function(){
+  $scope.generatePdf = function(){
   			//generate pdf with commits
   			var doc = new jsPDF();
         //set font title
